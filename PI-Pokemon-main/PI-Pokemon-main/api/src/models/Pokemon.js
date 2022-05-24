@@ -10,26 +10,26 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    vida: {
+    hp: {
       type: DataTypes.INTEGER,
     },
-    fuerza: {
+    attack: {
       type: DataTypes.INTEGER,
     },
-    defensa: {
+    defense: {
       type: DataTypes.INTEGER,
     },
-    velocidad: {
+    speed: {
       type: DataTypes.INTEGER,
     },
-    altura: {
+    height: {
       type: DataTypes.INTEGER,
     },
-    peso: {
+    weight: {
       type: DataTypes.INTEGER,
     }
   });
