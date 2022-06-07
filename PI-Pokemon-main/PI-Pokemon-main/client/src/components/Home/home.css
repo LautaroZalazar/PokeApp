@@ -1,0 +1,14 @@
+.footer{
+    margin-left: 47%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.titleHome{
+    text-align: center;
+}
+
+.img{
+    width: 30px;
+}

@@ -1,0 +1,27 @@
+.filterStyle{
+    display: flex;
+    margin-left: 37%;
+    margin-right: 39%;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.filterStyle select{
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.filterStyle:hover select{
+    cursor: pointer;
+}
+
+.filterStyle label{
+    font-size: 20px;
+}
+
+.filterBox{
+    display: inline;
+    background: rgba(0, 0, 0, 0.5);
+}

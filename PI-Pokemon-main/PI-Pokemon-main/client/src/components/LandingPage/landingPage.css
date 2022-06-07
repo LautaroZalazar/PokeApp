@@ -1,0 +1,95 @@
+body{
+    background: url(../../Resources/LPimg.jpg) no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.landingPage{
+    text-align: center;
+    display: flex;
+    position: relative;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    background-color: transparent;
+    margin-top: 20%;
+    border-radius: 3px;
+}
+
+.lpLink{
+    position: relative;
+    background: rgba(44, 44, 52, 0.25);
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+    transition: 0.5s;
+}
+
+.lpLink:hover{
+    letter-spacing: 0.25em;
+    color: rgb(44, 44, 52,);
+    background: rgb(245, 242, 242);
+}
+
+.lpLink::before{
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: rgba(6, 6, 6, 0.3);
+}
+
+.HomeButton{
+    padding: 3px 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.HomeButton:hover{
+    font-weight: 700;
+    color: rgb(44, 44, 52);
+}
+
+.i{
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.lpLink .i::before{
+    content: '';
+    position: absolute;
+    top: -3.5px;
+    left: 80%;
+    width: 10px;
+    height: 5px;
+    border: 2px solid #fff;
+    background: rgba(44, 44, 52, 0.25);
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+
+.lpLink:hover .i::before{
+    width: 20px;
+    left: 10%;
+}
+
+.lpLink .i::after{
+    content: '';
+    position: absolute;
+    bottom: -3.5px;
+    left: 10%;
+    width: 10px;
+    height: 5px;
+    border: 2px solid #fff;
+    background: rgba(44, 44, 52, 0.25);
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+
+.lpLink:hover .i::after{
+    width: 20px;
+    left: 80%;
+}

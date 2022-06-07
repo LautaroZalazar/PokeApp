@@ -1,0 +1,17 @@
+.orderStyle{
+    margin-left: 42.5%;
+}
+
+.orderStyle select{
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.orderStyle:hover select{
+    cursor: pointer;
+}
+
+.orderStyle label{
+    font-size: 20px;
+    color: white;
+}

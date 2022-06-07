@@ -1,0 +1,46 @@
+.navBarContainer{
+    display: table;
+    width: 100%;
+    height: 70px;
+    background-color: #290035;
+}
+
+.homeClass{
+    float: left;
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 35px;
+    color: white;
+    font-family: 'Rancho', cursive;
+    transition-duration: 0.4s
+}
+
+.homeClass:hover{
+    color: rgba(196, 168, 224, 0.938);
+}
+
+.createClass{
+    float: right;
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 35px;
+    color: white;
+    font-family: 'Rancho', cursive;
+    transition-duration: 0.4s
+}
+
+.createClass:hover{
+    color: rgba(196, 168, 224, 0.938);
+}
+
+.orderClass{
+    font-size: 30;
+    float: center;
+    margin-top: 15px;
+}
+
+.filterClass{
+    font-size: 30;
+    float: center;
+    margin-top: 15px;
+}

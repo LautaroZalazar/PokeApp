@@ -1,5 +1,7 @@
 const {Op} = require('sequelize')
 const Axios = require('axios')
+const {Pokemon, Type} = require('../db');
+const {v4: uuidv4, validate: uuidValidate} = require('uuid')
 
 const { Router, response } = require('express');
 // Importar todos los routers;
@@ -11,7 +13,6 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authR'ERR_HTTP_HEADERS_SENT'outer);
 
-const {Pokemon, Types} = require('../db');
 
 const getPokes = async () => {
     try {
@@ -27,7 +28,8 @@ const getPokes = async () => {
                 speed: pok.data.stats[5].base_stat,
                 height: pok.data.height,
                 weight: pok.data.weight,
-                type: pok.data.types.map(t => {return t.type.name})
+                type: pok.data.types.map(t => {return t.type.name}),
+                image: pok.data.sprites.other.home.front_default
             }
         }))
         return pokes
@@ -37,9 +39,9 @@ const getPokes = async () => {
 }
 const getPokesDb = async () => {
     let pokes = await Pokemon.findAll({
-        includes:{
-            model: Types,
-            attributes: ['name'],
+        include: {
+            model: Type,
+            attributes: ['ID', 'name'],
             through:{
                 attributes: []
             }
@@ -52,14 +54,15 @@ const findPokeApi = async (attribute) => {
     let res = await Axios.get(`https://pokeapi.co/api/v2/pokemon/${attribute}`)
     if(res){let pokemon = {
             ID: res.data.id,
-            nombre: res.data.name,
-            vida: res.data.stats[0].base_stat,
-            ataque: res.data.stats[1].base_stat,
-            defensa: res.data.stats[2].base_stat,
-            velocidad: res.data.stats[5].base_stat,
-            altura: res.data.height,
-            peso: res.data.weight,
-            tipo: res.data.types.map(t =>{return t.type.name})
+            name: res.data.name,
+            hp: res.data.stats[0].base_stat,
+            attack: res.data.stats[1].base_stat,
+            defense: res.data.stats[2].base_stat,
+            speed: res.data.stats[5].base_stat,
+            height: res.data.height,
+            weight: res.data.weight,
+            type: res.data.types.map(t =>{return t.type.name}),
+            image: res.data.sprites.other.home.front_default
     }
     return pokemon
     }
@@ -73,13 +76,7 @@ const findPokeDb = async(name) => {
                 [Op.like]:`%${name}`
             }
         },
-        includes:{
-            model: Types,
-            attributes: ['name'],
-            through:{
-                attributes: []
-            }
-        }
+        include: Type
     })
     return res
 }
@@ -90,21 +87,6 @@ const allPokemon = async() => {
     let pokeList = pokesApi.concat(pokesDb)
     return pokeList
 }
-
-const getTypes = async() => {
-    try {
-        let tipos = await Axios.get('https://pokeapi.co/api/v2/type')
-        let arrTypes = tipos.data.results
-        for(let i = 0; i < arrTypes.length; i++){
-            let name = arrTypes[i].name
-            await Types.create({
-                name
-            })
-        }
-    } catch (error) {
-    }
-}
-
 
 router.get('/pokemons', async (req, res) => {
     const {name} = req.query
@@ -127,21 +109,15 @@ router.get('/pokemons', async (req, res) => {
 router.get('/pokemons/:idPokemon', async (req, res) => {
     const {idPokemon} = req.params
     try {
-        let pokeApi = await findPokeApi(idPokemon)
-        if(pokeApi) return res.json(pokeApi)
-
-        let pokeDB = await Pokemon.findByPk({
-            where:{
-                ID: idPokemon
-            },
-            includes:{
-                model: Types,
-                attributes: ['name'],
-                through:{
-                    attributes: []
-                }
-            }
-        })
+        if(uuidValidate(idPokemon)){
+            const pokeDB = await Pokemon.findByPk(idPokemon,{
+                include: Type
+            })
+            res.status(200).json(pokeDB)
+        } else{
+            const pokeApi = await findPokeApi(idPokemon)
+            res.status(200).json(pokeApi)
+        }
     } catch (error) {
         res.status(404).json({error: "El pokemon con el id solicitado no existe"})
     }
@@ -159,14 +135,14 @@ router.post('/pokemons', async(req, res) => {
             height,
             weight
         })
-        // console.log("Soy el pokemon", pokemon)
-        // console.log("Soy el type", type)
-        // console.log("Soy el pokemon", pokemon)
-        types.forEach(async element => {
+        let pokeDB = await Type.findAll({
+            where: {name: types}
+        })
+        /* types.forEach(async element => {
             await pokemon.addType(element)
-        });
-
-        res.send({msg: "Pokemon creado"})
+        }); */
+        pokemon.addType(pokeDB)
+        res.send('Creado con éxito')
     } catch (error) {
         res.status(404).json({error: "El pokemon no pudo ser creado"})
     }
@@ -174,9 +150,19 @@ router.post('/pokemons', async(req, res) => {
 
 router.get('/types', async (req, res) => {
     try {
-        await getTypes()
-        let allTypes = await Types.findAll() //Llamo los tipos que tengo en mi base de datos
-        res.json(allTypes)
+        let types = await Type.findAll()
+        if(!types.length){
+            let allTypes = await Axios.get(
+                "https://pokeapi.co/api/v2/type"
+                );
+            types = await allTypes.data.results.map(
+                (t) => ({name: t.name})
+                )
+            await Type.bulkCreate(types)
+            types = await Type.findAll()
+        }
+        
+        res.status(200).json(types)
     } catch (error) {
         res.status(404).json({error:"No se pudieron obtener los tipos de la base de datos"})
     }
