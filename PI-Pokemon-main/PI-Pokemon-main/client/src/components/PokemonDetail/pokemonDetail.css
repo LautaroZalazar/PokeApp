@@ -16,7 +16,7 @@
 }
 
 .right{
-    padding-left: 32px;
+    padding-left: 37px;
     margin-top: 110px;
     grid-area: 2 / 6 / 4 / 7;
 }
@@ -58,7 +58,7 @@
 }
 
 .statsClass{
-    
+    font-family: "Merienda", cursive;
     height: min-content;
     font-size: 22px;
     margin-top: 50px;
