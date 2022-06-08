@@ -13,7 +13,7 @@ export const REFRESH = 'REFRESH'
 
 export const getAllPokemon = () => {
     return async(dispatch) => {
-        let res = await axios.get('http://localHost:3001/pokemons')
+        let res = await axios.get('/pokemons')
         return dispatch({type: GET_ALL_POKEMON, payload: res.data})
     }
 }
@@ -90,7 +90,7 @@ export const filterPokemonByType = (type, pokemon, unfilteredPokemon) =>{
 
 export const getPokeById = (idPokemon) => {
     return async(dispatch) => {
-        let res = await axios.get(`http://localHost:3001/pokemons/${idPokemon}`)
+        let res = await axios.get(`/pokemons/${idPokemon}`)
         return dispatch({type: GET_POKE_BY_ID, payload: res.data})
     }
 }
@@ -105,7 +105,7 @@ export const getPokeByName = (name) => {
     return async(dispatch) => {
         /* let poke = [] */
         /* let res = */ 
-        await axios.get(`http://localHost:3001/pokemons?name=${name}`)
+        await axios.get(`/pokemons?name=${name}`)
         .then(res=>{window.location.href=`/PokemonDetail/${res.data.ID}`})
 /*         poke.push(res.data)
         return dispatch({type:GET_POKE_BY_NAME, payload: poke}) */
@@ -114,14 +114,14 @@ export const getPokeByName = (name) => {
 
 export const createPokemon = (body) => {
     return async(dispatch) => {
-        let res = await axios.post(`http://localHost:3001/pokemons`, body)
+        let res = await axios.post(`/pokemons`, body)
         return res
     }
 }
 
 export const getTypes = () => {
     return async(dispatch) => {
-        let res = await axios.get('http://localHost:3001/types')
+        let res = await axios.get('/types')
         return dispatch({type: GET_TYPES, payload: res.data})
     }
 }
