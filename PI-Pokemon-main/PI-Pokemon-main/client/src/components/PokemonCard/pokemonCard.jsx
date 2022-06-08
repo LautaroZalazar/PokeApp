@@ -4,7 +4,6 @@ import './pokemonCard.css'
 import whoimg from '../../Resources/whosThatPokemon.jpg'
 
 export default function PokemonCard(props){
-    console.log(props.Type);
     return(
         <Link className='linkClass' to={`/PokemonDetail/${props.idPokemon}`}>
             <div className='PokeCard'>

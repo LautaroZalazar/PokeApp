@@ -7,7 +7,6 @@ export function Order(props){
     
     function handleOrder(e){
         props.orderPokemon(e.target.value, props.pokemon)
-        console.log(props.pokemon);
         props.setCont(props.cont + 1)
     }
 
