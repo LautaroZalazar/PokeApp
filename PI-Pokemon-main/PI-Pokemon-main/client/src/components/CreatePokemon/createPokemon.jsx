@@ -67,7 +67,7 @@ export function CreatePokemon(props){
         input.weight ? 
         setButton(false) :
         setButton(true)
-    },[input])    
+    },[input])
 
     function handleDelete(el) {
       setInput({
