@@ -25,7 +25,9 @@ export function CreatePokemon(props){
         let errors = {};
         if(!input.name){
             errors.name = 'Se requiere un nombre!'
-        } else if(!input.hp){
+        }else if(input.name[0] === ' '){
+            errors.name = 'El primer caracter no puede ser un espacio vacio'
+        }else if(!input.hp){
         errors.hp = 'Se debe ingresar la vida del pokemon'
         } else if(input.hp < 0){
             errors.hp = 'La vida no puede ser negativa'
