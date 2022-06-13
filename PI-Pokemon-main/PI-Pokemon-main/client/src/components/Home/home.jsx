@@ -11,6 +11,7 @@ import './home.css'
 export function Home(props){
 
     const [cont, setCont] = useState(0)
+    const [page, setPage] = useState(1)
 
     useEffect(()=>{
         props.refresh()
@@ -19,10 +20,10 @@ export function Home(props){
     },[])
     return (
         <div className='homeContainer'>
-                {<NavBar cont={cont} setCont={setCont}/>}
+                {<NavBar cont={cont} setCont={setCont} setPage={setPage}/>}
                 <h1 className='titleHome'> Pokedex </h1>
                 <div>
-                    {<PokemonCards cont={cont}/>}
+                    {<PokemonCards cont={cont} page={page} setPage={setPage}/>}
                 </div>
             <footer className='footer'>
                 <a href="https://www.instagram.com/pokemon/" target="_blank" rel="noreferrer"> <img src={igIcon} alt='ig icon' className='img' /> </a>
@@ -46,4 +47,4 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

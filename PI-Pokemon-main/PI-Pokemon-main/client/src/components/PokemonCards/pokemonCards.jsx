@@ -1,16 +1,16 @@
 import { connect} from "react-redux";
 import { getAllPokemon } from "../../redux/actions";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PokemonCard from '../PokemonCard/pokemonCard'
 import './pokemonCards.css'
 import gif from '../../Resources/pikachu.gif'
 
 export function PokemonCards(props){
     
-    const [page, setPage] = useState(1)
+    /* const [page, setPage] = useState(1) */
 
     const group = 12
-    const finalPage = page * group
+    const finalPage = props.page * group
     const initialPage = finalPage - group
 
     const pokemon = props.pokemon.slice(initialPage, finalPage)
@@ -20,13 +20,13 @@ export function PokemonCards(props){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    if(page < 1) {
-        setPage(1)
+    if(props.page < 1) {
+        props.setPage(1)
         return
     }
 
-    if(page > 10) {
-        setPage(10)
+    if(props.page > 10) {
+        props.setPage(10)
         return
     }
     return(
@@ -50,9 +50,9 @@ export function PokemonCards(props){
                     </div>)}
             </div>
             <div className="Paginado">
-                <button onClick={()=> setPage(page - 1)}> atras </button>
-                <h3 className="Num">Page: {page}</h3>
-                <button onClick={() => setPage(page + 1)}> adelante </button>
+                <button onClick={()=> props.setPage(props.page - 1)}> atras </button>
+                <h3 className="Num">Page: {props.page}</h3>
+                <button onClick={() => props.setPage(props.page + 1)}> adelante </button>
             </div>
 
         </div>

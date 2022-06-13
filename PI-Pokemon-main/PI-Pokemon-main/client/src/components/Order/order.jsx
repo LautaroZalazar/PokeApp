@@ -8,6 +8,7 @@ export function Order(props){
     function handleOrder(e){
         props.orderPokemon(e.target.value, props.pokemon)
         props.setCont(props.cont + 1)
+        props.setPage(1)
     }
 
     return(

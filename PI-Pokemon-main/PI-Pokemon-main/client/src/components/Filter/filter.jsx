@@ -8,10 +8,12 @@ export function Filter(props){
 
     const handleFilter = (e) => {
         props.filterPokemon(e.target.value, props.pokemon, props.unfilteredPokemon)
+        props.setPage(1)
     }
 
     const handleFilterTwo = (e) => {
         props.filterPokemonByType(e.target.value, props.pokemon, props.unfilteredPokemon)
+        props.setPage(1)
     }
 
     return(

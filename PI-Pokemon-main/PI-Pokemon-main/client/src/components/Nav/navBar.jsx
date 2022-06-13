@@ -12,10 +12,10 @@ export default function NavBar(props){
                 <NavLink to={'/CreatePokemon'} className='createClass'>Create Pokemon</NavLink>
             <div className="">
                 <div className="orderClass">
-                    <Order cont={props.cont} setCont={props.setCont}/>
+                    <Order cont={props.cont} setCont={props.setCont} setPage={props.setPage}/>
                 </div>
                 <div className='filterClass'>
-                    <Filter/>
+                    <Filter setPage={props.setPage}/>
                 </div>
                 <div className='sbClass'>
                     <SearchBar/>

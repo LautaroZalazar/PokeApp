@@ -168,4 +168,15 @@ router.get('/types', async (req, res) => {
     }
 })
 
+router.delete('/pokemons/:idPokemon', async (req, res) => {
+    const {idPokemon} = req.params
+    let poke = await Pokemon.findByPk(idPokemon)
+    if(poke){
+        await Pokemon.destroy({where:{
+            ID: idPokemon
+        }})
+        res.json(`El pokemon de ID:${idPokemon}, ha sido eliminado`)
+    } else res.json(`No existe un pokemon de ID: ${idPokemon}`)
+})
+
 module.exports = router;
